@@ -11,6 +11,16 @@
     <title>Shoppinglist</title>
 </head>
 <body>
+<p style="color: red">${requestScope.msg}</p>
+
     <h1>Velkommen til din online indkøbsliste</h1>
+    <form action="LoginServlet" method="post">
+        <label form="frame">Username:</label>
+        <input type="text" id="uname" name="name"><br>
+        <label form="frame">Password:</label>
+        <input type="text" id="passwd" name="passwd"><br>
+        <input type="submit" value="Log in">
+
+    </form>
 </body>
 </html>
