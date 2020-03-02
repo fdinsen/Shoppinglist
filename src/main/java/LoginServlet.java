@@ -20,17 +20,20 @@ public class LoginServlet extends HttpServlet {
             Map<String, String> userMap = new HashMap<>();
 
             userMap.put("test","test");
+            userMap.put("admin", "admin");
             sc.setAttribute("userMap", userMap);
         }
 
         if( !( (Map<String, String>) sc.getAttribute("userMap")).containsKey(name) ) {
-            //TODO go to login in page
             request.setAttribute("msg", "User does not exist.");
             request.getRequestDispatcher("WEB-INF/CreateUser.jsp").forward(request,response);
         }
 
         if ( ( (Map<String, String>) sc.getAttribute("userMap")).get(name).equalsIgnoreCase(passwd) ) {
-            //TODO go to shoppinglist
+            if (name.equalsIgnoreCase("admin")) {
+                //TODO go to admin page
+                request.getRequestDispatcher("WEB-INF/admin.jsp").forward(request,response);
+            }
             request.getRequestDispatcher("WEB-INF/Shoppinglist.jsp").forward(request,response);
         }
         //TODO go to index
