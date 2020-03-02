@@ -7,7 +7,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 @WebServlet(name = "LoginServlet" , urlPatterns = "/LoginServlet")
 public class LoginServlet extends HttpServlet {
@@ -27,6 +29,17 @@ public class LoginServlet extends HttpServlet {
             userMap.put("admin", "admin");
             sc.setAttribute("userMap", userMap);
         }
+        //Singleton activeUsers
+        if( ((Set<String>) sc.getAttribute("activeUsers")) == null ) {
+            Set<String> activeUsers = new HashSet();
+            sc.setAttribute("activeUsers", activeUsers);
+        }
+
+
+        if( !(session.getAttribute("msg") == null) ) {
+            request.getRequestDispatcher("WEB-INF/Shoppinglist.jsp").forward(request, response);
+        }
+
 
         //If user doesn't exist, go to createUser (this is a terrible user experience)
         if( !( (Map<String, String>) sc.getAttribute("userMap")).containsKey(name) ) {
@@ -39,8 +52,15 @@ public class LoginServlet extends HttpServlet {
                 request.getRequestDispatcher("WEB-INF/admin.jsp").forward(request,response);
             }
 
-            session.setAttribute("msg", "You ave logged in with the name " + name);
-            request.getRequestDispatcher("WEB-INF/Shoppinglist.jsp").forward(request,response);
+            if( !(((Set<String>) sc.getAttribute("activeUsers")).contains(name)) ) {
+                ((Set<String>) sc.getAttribute("activeUsers")).add(name);
+                session.setAttribute("msg", "You ave logged in with the name " + name);
+                request.getRequestDispatcher("WEB-INF/Shoppinglist.jsp").forward(request, response);
+            } else {
+                request.setAttribute("msg", "User is already logged in");
+                request.getRequestDispatcher("index.jsp").forward(request,response);
+            }
+
         }
         //if the password was incorrect
         request.setAttribute("msg", "The password entered was incorrect.");
