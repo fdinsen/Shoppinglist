@@ -26,7 +26,7 @@ public class LoginServlet extends HttpServlet {
         if( !( (Map<String, String>) sc.getAttribute("userMap")).containsKey(name) ) {
             //TODO go to login in page
             request.setAttribute("msg", "User does not exist.");
-            request.getRequestDispatcher("index.jsp").forward(request,response);
+            request.getRequestDispatcher("WEB-INF/CreateUser.jsp").forward(request,response);
         }
 
         if ( ( (Map<String, String>) sc.getAttribute("userMap")).get(name).equalsIgnoreCase(passwd) ) {
