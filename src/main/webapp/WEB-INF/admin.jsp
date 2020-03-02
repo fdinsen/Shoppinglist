@@ -14,6 +14,13 @@
 <body>
     <h1>Admin page</h1>
 
+    <p style="color: red">${requestScope.msg}</p>
+    <form action="AdminServlet" method="post">
+        <label form="title">Delete user</label><br>
+        <input type="text" id="username" name="name"><br>
+        <input type="submit" value="Delete">
+    </form>
+
     <c:forEach var="element" items="${applicationScope.userMap}">
         ${element}
         <br>
