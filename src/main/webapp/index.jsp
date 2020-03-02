@@ -11,7 +11,8 @@
     <title>Shoppinglist</title>
 </head>
 <body>
-<p style="color: red">${requestScope.msg}</p>
+    <p style="color: red">${requestScope.msg}</p>
+    ${sessionScope.msg}
 
     <h1>Velkommen til din online indkøbsliste</h1>
     <form action="LoginServlet" method="post">

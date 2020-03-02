@@ -11,6 +11,7 @@
     <title>Shoppinglist</title>
 </head>
 <body>
+    ${sessionScope.msg}
     <h1>login successful</h1>
 </body>
 </html>
